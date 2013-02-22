@@ -1,0 +1,837 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta name="csrf-token" content="<%= form_authenticity_token %>" />
+		<meta name="csrf-param" content="authenticity_token" />
+		<link href="/favicon.ico" rel="shortcut icon">
+		<title>Procom Academy</title>
+		<%= stylesheet_link_tag "application" %>
+		<link rel="stylesheet" href="/poshytip/tip-twitter/tip-twitter.css" type="text/css" />
+		<link rel="stylesheet" href="/slither/styles.css" type="text/css" />
+		<link rel="stylesheet" href="/video-js/video-js.css" type="text/css" />	
+		<link rel="stylesheet" href="/raty/doc/css/stylesheet.css" type="text/css" />		
+		<script type="text/javascript" src="/jquery.js"></script>
+		<script type="text/javascript" src="/jquery.cookie.js"></script>
+		<script type="text/javascript" src="/procom.js"></script>
+		<script type="text/javascript" src="/video-js/video.js"></script>
+		<script type="text/javascript" src="/raty/js/jquery.raty.js"></script>
+		<style type="text/css">
+		.tags-width{
+			position:fixed;
+			width:20%;
+			max-width:260px;
+		}
+		#show-articles{
+			float:right;
+		}
+		</style>
+		<script type="text/javascript">
+		$(function(){
+			$("#tag-width").css("display","none");
+			$("#show-articles").css("display","none");
+		})
+		</script>	
+		<script type="text/javascript" src="/read.js"></script>
+		<script type="text/javascript" src="/load.js"></script>
+	</head>
+	<body data-offset="50" data-target=".subnav" data-spy="scroll" id="procom-body" class="monsoul">
+	<!--header begin-->
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<div class="index-link">
+					<a class="brand" href="#"><input type="hidden"value="/home/index">ProCom Academy</a>
+				</div>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="index-link" id="procom-read">
+							<a href="#">Procom阅读<input type="hidden" value="/read/index"></a>
+						</li>
+						<li>
+							<a href="http://www.rabelapp.com" target="_blank">Procom论坛</a>
+						</li>
+					</ul>
+					<form class="navbar-form pull-left" style="visibility: hidden;">
+						<input type="text" class="span2" id="index_search">
+					</form>
+					<ul class="nav pull-right">
+						<li id="longin-li">
+							<a data-keyboard="true" data-backdrop="true" data-toggle="modal" href="#login-dialog">登陆</a>
+						</li>
+						<li class="divider-vertical"></li>
+						<li class="dropdown" id="login-success-li" style="display:none">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#" id="login-nickname">
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="/home/log_off">注销</a>
+									<a data-toggle="modal" class="normal-ask" href="#qa-dialog" data-keyboard="true" data-backdrop="true">提问</a>
+									<a data-toggle="modal" href="#allquestion-dialog" data-keyboard="true" data-backdrop="true">我的提问</a>
+								</li>
+								<li class="index-link">
+									<a href="#">修改个人信息<input type="hidden" id="editinfo-url" value=""></a>
+								</li>
+								<div id="special-operation">
+									<!--
+									<li class="divider"></li>
+									<li class="nav-header">老师操作</li>
+									<li>
+										<a data-toggle="modal" href="#answerqa-dialog" data-keyboard="true" data-backdrop="true">
+											回答
+										</a>
+									</li>
+									<li class="divider"></li>
+									<li class="nav-header">管理员操作</li>
+									<li>
+										<a href="#">进入后台</a>
+									</li>
+									-->
+								</div>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--header end-->
+	<!--dialog begin-->
+	<!--dialog applicant begin-->
+	<div id="applicant-dialog" class="modal fade" style="display:none">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>我要报名</h3>
+		</div>
+		<div class="modal-body" id="applicant-body">
+			<form class="well form-horizontal" id="applicant-form" action="/home/applicant" method="POST">
+				<p class="help-block" id="error-applicant"></p>
+				<div class="control-group">
+					<label class="control-label" for="applicant_username">用户名</label>
+					<div class="controls">
+						<input type="text" class="span3" id="applicant_username" name="applicant_username" placeholder="请输入用户名...">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="applicant_name">姓名</label>
+					<div class="controls">
+						<input type="text" class="span3" id="applicant_name" name="applicant_name" placeholder="请输入真实姓名...">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="applicant_phone">联系电话</label>
+					<div class="controls">
+						<input type="text" class="span3" id="applicant_phone" name="applicant_phone" placeholder="请输入联系电话...">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="applicant_email">邮箱</label>
+					<div class="controls">
+						<input type="text" class="span3" id="applicant_email" name="applicant_email" placeholder="请输入邮箱...">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="applicant_school">学校</label>
+					<div class="controls">
+						<div class="input-append">
+							<input type="text" class="span3" id="applicant_school" name="applicant_school" readonly="readonly" placeholder="请选择学校...">
+							<a class="btn" id="select-school" data-toggle="modal" href="#school-dialog" data-keyboard="true" data-backdrop="true">选择</a>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="applicant_keywords">关键字</label>
+					<div class="controls">
+						<input type="text" class="span3" id="applicant_keywords" name="applicant_keywords" placeholder="请输入您的keywords...">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="applicant_comment">寄语</label>
+					<div class="controls">
+						<textarea id="applicant_comment" class="span3" name="applicant_comment" rows="3"></textarea>
+					</div>
+				</div>
+				<input type="hidden" name="applicant_schoolid" id="applicant_schoolid">
+			</form>
+			<div class="modal-footer">
+				<a href="#" id="submit-applicant" class="btn btn-warning">提交</a>
+				<a class="btn" data-dismiss="modal">取消</a>
+			</div>
+		</div>
+	</div>
+	<!--dialog applicant end-->
+	<!--dialog login begin-->
+	<div id="login-dialog" class="modal hide fade" >
+		<div class="modal-header">
+			<a class="close" id="login-dialog-close" data-dismiss="modal">×</a>
+			<h3>登陆</h3>
+		</div>
+		<div class="modal-body">
+			<form class="well form-horizontal" id="login-form" action="/home/login" method="POST">
+				<div class="alert alert-block alert-error fade in" id="login-error" style="display:none">
+				用户名或者密码错误或账号处于未激活状态
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="login_username">用户名</label>
+					<div class="controls">
+						<input type="text" class="span3" id="login_username" name="login_username" placeholder="请输入用户名...">
+						<p class="help-block"><a href="#">忘记密码？</a></p>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="login_password">密码</label>
+					<div class="controls">
+						<input type="password" class="span3" id="login_password" name="login_password" placeholder="请输入密码...">
+					</div>
+				</div>
+			</form>
+			<div class="modal-footer">
+				<a href="#" id="loginbtn" class="btn btn-warning" data-loading-text="登陆中..." data-complete-text="登陆成功" autocomplete="off">登陆</a>
+				<a class="btn" data-dismiss="modal">取消</a>
+			</div>
+		</div>
+		
+	</div>	
+	<!--dialog login end-->
+	<!--dialog school begin-->
+	<div id="school-dialog" class="modal fade" style="display:none">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>选择城市</h3>
+		</div>
+		<div class="modal-body">
+			<div class="show-citys" id="show-city">
+				<a href="#" title="bj">北京</a>
+				<a href="#" title="sh">上海</a>
+			</div>
+			<hr>
+			<div class="show-schools" id="show-school">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">关闭</a>
+		</div>
+	</div>
+	<!--dialog school end-->
+	<!--dialog qa begin-->
+	<div id="qa-dialog" class="modal fade" style="display:none">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>提问</h3>
+		</div>
+		<div class="modal-body">
+			<form class="well form-horizontal" id="qa-form" action="/home/ask_question" method="POST">
+				<div class="control-group">
+					<label class="control-label" for="ask_title">标题</label>
+					<div class="controls">
+						<input type="text" class="span3" id="ask_title" name="ask_title" placeholder="请输入标题...">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="ask_user">老师</label>
+					<div class="controls">
+						<div class="input-append">
+							<input type="text" class="span3" id="ask_user" name="ask_user" readonly="readonly" placeholder="请选择老师...">
+							<a class="btn" id="select-teacher" data-toggle="modal" href="#teacher-dialog" data-keyboard="true" data-backdrop="true">选择</a>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="ask_content">回答</label>
+					<div class="controls">
+						<textarea id="ask_content" class="span3" name="ask_content" rows="3"></textarea>
+					</div>
+				</div>
+				<input type="hidden" name="teacher_id" id="teacher_id" value="5">
+			</form>
+			<div class="modal-footer">
+				<a href="#" id="ask-btn" class="btn btn-warning">提交</a>
+				<a class="btn" data-dismiss="modal">取消</a>
+			</div>
+		</div>
+	</div>
+	<!--dialog qa end-->
+	<!--dialog teacher begin-->
+	<div id="teacher-dialog" class="modal fade" style="display:none">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>选择老师</h3>
+		</div>
+		<div class="modal-body">
+			<div class="show-teachers" id="show-teacher">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">关闭</a>
+		</div>
+	</div>
+	<!--dialog teacher end-->
+	<!--dialog allquestion begin-->
+	<div id="allquestion-dialog" class="modal fade" style="display:none">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>我的问题</h3>
+		</div>
+		<div class="modal-body">
+			<div class="show-questions" id="show-question">
+			</div>
+			<hr>
+			<div id="show-answers" id="show-answer">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">关闭</a>
+		</div>
+	</div>
+	<!--dialog allquestion end-->
+	<!--dialog answer begin-->
+	<div id="answerqa-dialog" class="modal fade" style="display:none">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>回答</h3>	
+		</div>
+		<div class="modal-body">
+			<div id="all-questions">
+			</div>
+			<hr>
+			<div id="question_content" style="display:none">
+				<form class="well" action="/home/answer_question" method="POST">
+					<div class="control-group">
+						<label id="answer-title"></label>
+						<label id="answer-content"></label>
+						<hr>
+						<label class="control-label" for="answer_content">回答
+						</label>
+						<div class="controls">
+							<textarea id="answer_content" class="span3" name="answer_content" rows="3"></textarea>
+						</div>
+					</div>
+					<input type="hidden" name="answer_id" id="answer_id" value="">
+					<input type="hidden" name="answer_title" id="answer_title" value="">
+					<input type="hidden" name="ask_user_id" id="ask_user_id" value="">
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#" id="answer-btn" class="btn btn-warning">回答</a>
+				<a class="btn" data-dismiss="modal">取消</a>
+			</div>
+		</div>
+	</div>
+	<!--dialog answerqa end-->
+	<div id="video-play-box" class="video-js-box madal fade" style="display:none">
+				<object id="flash_fallback_1" class="vjs-flash-fallback" width="800" height="450" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">
+					<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+     				<param name="allowfullscreen" value="true" />
+     				<param name="flashvars"
+					value='config={"playlist":["http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png", {"url": 	"http://edu.hcdglobal.com/download/video-js/swf/oceans-clip.mp4","autoPlay":false,"autoBuffering":true}]}' />
+					<img src="http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png" width="800" height="450" 	alt="Poster Image" title="No video playback capabilities."/>
+				</object>
+	</div>
+	<!--dialog userinfo begin-->
+	<div id="user-info-dialog" class="modal fade" style="display:none;width:520px">
+		<!--
+		<div class="modal-header">
+			<a class="close" style="margin-top:0px" data-dismiss="modal">×</a>
+			<h4 style="text-align:center;color:#9A9A9A">UserName</h3>	
+		</div>
+		<div class="modal-body" id="userinfo-modal-body">
+			<div id="teacher-modal-background">
+				<div>
+					<img id="userinfo-pic" src="/images/pic/pic1.jpg" width="100px">
+				</div>
+				<div style="text-align:center;">
+					<h3 style="color:#FFFFFF">About User Title</h3>
+					<h3 style="color:#FFFFFF">UserName</h3>
+				</div>
+			</div>
+			<div id="user-modal-info">
+				<div id="teacher-star"></div>
+				<p>学生评分:2.5</p>
+			</div>
+			<div id="user-modal-button" style="float:right;margin:20px">
+				<a class="btn btn-info" id="user-modal-ask">提交问题</a>
+			</div>
+			<div style="clear:both"></div>
+			<div id="user-bio">
+				This is the infomation for UserName
+			</div>
+		</div>
+		-->
+	</div>
+	<!--dialog userinfo end-->
+	<!--dialog end-->
+	<!--Carousel begin-->
+	<div style="clear:both;"></div>
+	<!--
+	<div id="procom-inners" class="navbar-inners" style="width:980px;margin:40px auto 0 auto">
+		<div class="video-wrapper" id="video-wrapper" style="display:block">
+			<div class="video-js-box video-preview" style="">
+					<object id="flash_fallback_1" style="z-index:1001"class="vjs-flash-fallback" width="555" height="312" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" >
+						<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+	         			<param name="allowfullscreen" value="true" />
+	         			<param name="flashvars"
+						value='config={"playlist":["http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png", {"url": "http://edu.hcdglobal.com/download/video-js/swf/oceans-clip.mp4","autoPlay":false,"autoBuffering":true}]}' />
+						<img src="http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png" width="555" height="312" alt="Poster Image" title="No video playback capabilities."/>
+					</object>
+			</div>
+		</div>
+	</div>
+	-->
+	<!--show beigin
+		<div id="file-show">
+			<div class="step" id="step1">
+				<div class="information container">
+					<h1>Website content planning made simple.</h1>
+					<h2>We help web teams plan, structure and collaborate on content.</h2>
+					<ul class="row">
+						<li class="span plan float-up" style="width:170px">
+							<p>Plan</p>
+							<p>Architect & organise your content with drag & drop.</p>
+						</li>
+						<li class="span structure float-up" style="width:170px">
+							<p>Structure</p>
+							<p>Structure specific rules & guidelines for your content.</p>
+						</li>
+						<li class="span collaborate float-up" style="width:170px">
+							<p>Collaborate</p>
+							<p>Get the content you need from your team, clients & contributors.</p>
+						</li>
+						<li class="span deliver float-up" style="width:170px">
+							<p>Deliver</p>
+							<p>Get approval & export your content to CMS with our plugins or via the API.</p>
+						</li>
+					</ul>
+				</div>
+				<a class="carousel-control left end" href="#">&lsaquo;</a>
+				<a class="carousel-control right next" href="#">&rsaquo;</a>
+			</div>
+			<div class="step" id="step2">
+				<div class="video-wrapper" id="video-wrapper" style="display:block">
+					<div class="video-js-box video-preview" style="">
+							<object id="flash_fallback_1" style="z-index:1001"class="vjs-flash-fallback" width="555" height="312" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" >
+								<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+			         			<param name="allowfullscreen" value="true" />
+			         			<param name="flashvars"
+								value='config={"playlist":["http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png", {"url": "http://edu.hcdglobal.com/download/video-js/swf/oceans-clip.mp4","autoPlay":false,"autoBuffering":true}]}' />
+								<img src="http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png" width="555" height="312" alt="Poster Image" title="No video playback capabilities."/>
+							</object>
+					</div>
+				</div>
+				<a class="carousel-control left back" href="#">&lsaquo;</a>
+				<a class="carousel-control right finish" href="#">&rsaquo;</a>
+			</div>
+			<div class="step" id="step3">
+				<div class="information">
+					<a class="carousel-control left back" href="#">&lsaquo;</a>
+					<a class="carousel-control right again" href="#">&rsaquo;</a>
+				</div>
+			</div>
+		</div>
+	show end-->
+    <div id="myCarousel" class="carousel slide" style="display:none">
+      <div class="carousel-inner">
+        <div class="item active">
+          <img src="/images/slide-033.jpg" alt="">
+		  <div class="information container">
+			  <div style="clear:both;padding:30px"></div>
+			  <h1>Website content planning made simple.</h1>
+			  <h2>We help web teams plan, structure and collaborate on content.</h2>
+			  <div style="clear:both;padding:30px"></div>
+			  <div class="span plan">
+				  <p class="div-plan-p">Plan</p>
+				  <p class="plan-p">Architect & organise your content with drag & drop.</p>
+			  </div>
+			  <div class="span structure">
+				  <p class="div-plan-p">Structure</p>
+				  <p class="plan-p">Structure specific rules & guidelines for your content.</p>
+			  </div>
+			  <div class="span collaborate">
+				  <p class="div-plan-p">Collaborate</p>
+				  <p class="plan-p">Get the content you need from your team, clients & contributors.</p>
+			  </div>
+			  <div class="span deliver">
+				  <p class="div-plan-p">Deliver</p>
+				  <p class="plan-p">Get approval & export your content to CMS with our plugins or via the API.</p>
+			  </div>
+			 <!-- 
+			 <ul class="row" style="margin-left:0px">
+				  <li class="span plan float-up" style="width:160px">
+					  <p>Plan</p>
+					  <p>Architect & organise your content with drag & drop.</p>
+				  </li>
+				  <li class="span structure float-up" style="width:160px">
+					  <p>Structure</p>
+					  <p>Structure specific rules & guidelines for your content.</p>
+				  </li>
+				  <li class="span collaborate float-up" style="width:160px">
+					  <p>Collaborate</p>
+					  <p>Get the content you need from your team, clients & contributors.</p>
+				  </li>
+				  <li class="span deliver float-up" style="width:160px">
+					  <p>Deliver</p>
+					  <p>Get approval & export your content to CMS with our plugins or via the API.</p>
+				  </li>
+			  </ul>
+			  -->
+		  </div>
+        </div>
+        <div class="item">
+			<img src="/images/slide-022.jpg" alt="">
+			<div class="container">
+				<div class="carousel-caption pull-left">
+					<h1 style="font-size:48px">测试测试测试</h1>
+					<p class="lead" style="font-size:24px">
+						测试下看看，测试下看看，测试下看看，测试下看看，测试下看看，测试下看看.
+					</p>
+					<a class="btn btn-large btn-warning" href="#">Learn more</a>
+				</div>
+				<div class="video-js-box video-preview pull-right" style="margin-top:120px">
+					<object id="flash_fallback_1" style="z-index:1001"class="vjs-flash-fallback" width="640" height="360" type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" >
+						<param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+						<param name="allowfullscreen" value="true" />
+						<param name="flashvars"
+						value='config={"playlist":["http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png", {"url": "http://edu.hcdglobal.com/download/video-js/swf/oceans-clip.mp4","autoPlay":false,"autoBuffering":true}]}' />
+						<img src="http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png" width="640" height="360" alt="Poster Image" title="No video playback capabilities."/>
+					</object>
+				</div>
+			</div>
+		</div>
+        <div class="item">
+          <img src="/images/slide-011.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>One more for good measure.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-warning" href="http://twitter.github.com/bootstrap/examples/carousel.html#">Browse gallery</a>
+            </div>
+          </div>
+        </div>
+      </div>
+	  <!--
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+	  -->
+    </div><!-- /.carousel -->
+	<!--Carousel end-->
+	<div class="row space-button-well" style="display:none">
+		<div class="span get-start-now">
+			<h2 class="pull-left">Ready to say goodbye to content chaos?</h2>
+			<a class="btn btn-large btn-warning pull-right" data-toggle="modal" href="#applicant-dialog"  data-keyboard="true" data-backdrop="true">Get Started Now</a>
+		</div>
+	</div>
+	<div id="procom-container" class="container wrapper white">
+		<!--pageload begin-->
+		<div id="pageload">
+			<div style="clear:both;padding:30px 0;"></div>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div class="span3 tags-width" id="tag-width">
+						<div class="well sidebar-nav">
+							<ul class="nav nav-list">
+								<li class="nav-header">最新动态</li>
+								<li class="active select-tags select-type">
+									<a href="#"><i class="icon-white icon-home"></i>最新动态<input type="hidden" value="ATC_O"></a>
+								</li>
+								<li class="select-tags select-type">
+									<a href="#"><i class="icon-heart"></i>特别关注<input type="hidden" value="ATC_EL"></a>
+								</li>
+								<li class="select-tags select-type">
+									<a href="#"><i class="icon-star"></i>合得推荐<input type="hidden" value="ATC_QA"></a>
+								</li>
+								<li class="nav-header">话题
+									<span class="pull-right">
+										<a data-toggle="modal" href="#tags-dialog"  data-keyboard="true" data-backdrop="false"><i class="icon-cog"></i>更多</a>
+									</span>
+								</li>
+								<% @alltags.each do |tag| %>
+								<li class="select-tags choose-tags">
+									<a href="#"><i class="icon-tag"></i><%= tag.name%><input type="hidden" value="<%= tag.id %>"><i class="remove-tags icon-remove pull-right close" title="退订该话题"></i></a>
+								</li>
+								<% end %>
+								<li class="nav-header">其他相关</li>
+								<li class="select-tags">
+									<a href="#"><i class="icon-user"></i>相关活动</a>
+								</li>
+								<li class="select-tags">
+									<a href="#"><i class="icon-flag"></i>相关帮助</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="span9" id="show-articles">
+						<div id="all-articles" style="display:none">
+							<input type="hidden" id="total-count" value="0">
+							<input type="hidden" id="ajax-params" value="">
+							<input type="hidden" id="load-type" value="">
+						</div>
+					</div>
+					<div id="show-one-article">
+						<div class="alert fade in article-alert">
+							<strong>Hello !</strong>关注Procom 请注册账号
+							<a class="btn btn-primary btn-large" data-toggle="modal" href="#applicant-dialog"  data-keyboard="true" data-backdrop="true">我要报名 »</a>
+						</div>
+						<% if is_el(@article) %>
+						<input type="hidden" id="my-open-url" value="<%= @article.content %>">
+						<script type="text/javascript">
+						$(function(){
+							var myurl=$("#my-open-url").val();
+							myjump('#space-num',10,myurl);
+						});
+						</script>
+						<div class="row read-well article-well">
+							<div class="span" style="width:100%;margin:0px;text-align:center">
+								<h3>页面将在10秒后跳转...</h3>
+								<p>还剩<span id="space-num">1000</span>秒</p>
+								<p class="space-jump">
+									<a href="<%= @article.content %>" target="_blank">等不及了</a>
+								</p>
+							</div>
+						</div>
+						<% elsif is_common(@article) %>
+						<div class="row read-well article-well">
+							<div class="span" style="margin-left:10px;margin-left:0px \9;width:70%;">
+								<dl class="dl-horizontal dl-article">
+									<dt>
+										<img src="<%= @ask_user.pic %>" width="50px" height="50px">
+									</dt>
+									<dd>
+										<h4>Question from :<%= @ask_user.real_name %></h4>
+									</dd>
+									<dd>
+										<h5><small><%= @ask.updated_at %></small></h5>
+									</dd>
+									<dd class="choose-tags">
+										<% @tags.each do |tag| %>
+										<a href="#"><i class="icon-tag"></i><%= tag.name %><input type="hidden" value="<%= tag.id %>"></a>
+										<% end %>
+									</dd>
+								</dl>
+							</div>
+							<div class="span3" style="width:25%">
+								<div class="btn-toolbar" style="margin-top:18px;float:right;">
+									<div class="btn-group">
+										<a class="btn btn-danger"><i class="icon-white icon-heart"></i>收藏</a>
+									</div>
+									<div class="btn-group">
+										<button class="btn btn-info">分享</button>
+										<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li class="sina-share-qa">
+												<a href="#">新浪微博</a>
+											</li>
+											<li>
+												<a href="#">其他</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="#">其他操作</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="span8" style="margin-left:10px;margin-left:0px \9;width:95%">
+								<h3>
+									<%= @ask.question_title %>
+								</h3>
+								<p>
+									<%= @ask.content %>
+								</p>
+							</div>
+							<div style="clear:both"></div>
+							<hr>
+							<div class="span8" style="margin-left:10px;margin-left:0px \9;width:95%">
+								<dl class="dl-horizontal dl-article">
+									<dt>
+										<img src="<%= @asked_user.pic %>" width="50px" height="50px">
+									</dt>
+									<dd>
+										<h4>Answer from :<%= @asked_user.real_name %></h4>
+									</dd>
+									<dd>
+										<h5><small><%= @answer.updated_at %></small></h5>
+									</dd>
+									<dd class="choose-tags">
+										<% @tags.each do |tag| %>
+										<a href="#"><i class="icon-tag"></i><%= tag.name %><input type="hidden" value="<%= tag.id %>"></a>
+										<% end %>
+									</dd>
+								</dl>
+							</div>
+							<div class="span8" style="margin-left:10px;margin-left:0px \9;width:95%">
+								<p>
+									<%= @answer.content %>
+								</p>
+								<p><a href="#" style="display:none"><input type="hidden" value="<%= @article.id %>"></a></p>
+							</div>
+						</div>
+						<% else %>
+						<div class="row read-well article-well">
+							<div class="span5" style="margin-left:10px;margin-left:0px \9;width:70%">
+								<dl class="dl-horizontal dl-article">
+									<dt>
+										<img src="<%= @user.pic %>" width="50px" height="50px">
+									</dt>
+									<dd>
+										<h4><%= @article.title%></h4>
+									</dd>
+									<dd>
+										<h5><small><%= @article.updated_at %></small></h5>
+									</dd>
+									<dd class="choose-tags">
+										<% @tags.each do |tag| %>
+										<a href="#"><i class="icon-tag"></i><%= tag.name %><input type="hidden" value="<%= tag.id %>"></a>
+										<% end %>
+									</dd>
+								</dl>
+							</div>
+							<div class="span3" style="width:25%">
+								<div class="btn-toolbar" style="margin-top:18px;float:right;">
+									<div class="btn-group">
+										<a class="btn btn-danger"><i class="icon-white icon-heart"></i>收藏</a>
+									</div>
+									<div class="btn-group">
+										<button class="btn btn-info btn-share">分享</button>
+										<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+											<span class="caret"></span>
+										</button>
+										<ul class="dropdown-menu">
+											<li class="sina-share">
+												<a href="#">新浪微博</a>
+											</li>
+											<li>
+												<a href="#">其他</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="#">其他操作</a>
+											</li>
+										</ul>
+								    </div>
+								</div>
+							</div>
+							<div class="span5" style="margin-left:10px;margin-left:0px \9;width:70%">
+								<p>
+									<%= @article.content%>
+								</p>
+								<p><a href="#" style="display:none"><input type="hidden" value="<%= @article.id%>"></a></p>
+							</div>
+							<div class="span3" style="width:25%">
+								<p class="span3-img" style="float:right">
+									<img src="<%= @article.pic %>" width="260px" height="180px" style="float:right">
+								</p>
+							</div>
+						</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--PageLoad end-->	
+	</div>
+	<div id="footer" style="display:none">
+		<div class="container" id="footer-container">
+			<div class="container-fluid" id="footer-container-fluid">
+				<p class="brand">
+					ProCom Academy
+				</p>
+				<p style="color:#6A6A6A">新浪微博&nbsp;<a href="#">@合得国际商业实训</a></p>
+				<p>&nbsp;</p>
+				<p>旨在帮助大学生更好地适应职场，搭建高校学术环境与用人单位实际需求间的桥梁。</p>
+				<p>该训练营专注于培养大学生的行业知识、专业素质和职业心态等商业综合素质。</p>
+				<p>&nbsp;</p>
+				<div style="clear:both"></div>
+				<ul>
+					<li>
+						我们的导师团
+					</li>
+					<li>
+						<a href="#">师资介绍</a>
+					</li>
+					<li>
+						<a href="#">分享专题</a>
+					</li>
+					<li>
+						<a href="#">导师预约</a>
+					</li>
+				</ul>
+				<div style="clear:both"></div>
+				<ul>
+					<li>
+						免费线下活动
+					</li>
+					<li>
+						<a href="#">商业精英特战体验班</a>
+					</li>
+					<li>
+						<a href="#">微课堂</a>
+					</li>
+				</ul>
+				<div style="clear:both"></div>
+				<ul>
+					<li>
+						商业实训
+					</li>
+					<li>
+						<a href="#">简介</a>
+					</li>
+					<li>
+						<a href="#">课程设置</a>
+					</li>
+					<li>
+						<a href="#">适合对象</a>
+					</li>
+					<li>
+						<a href="#">实训流程</a>
+					</li>
+					<li>
+						<a href="#">合作院校</a>
+					</li>
+					<li>
+						<a href="#">常见问题</a>
+					</li>
+				</ul>
+				<div style="clear:both"></div>
+				<ul>
+					<li>
+						实习就业
+					</li>
+					<li>
+						<a href="#">消费品行业</a>
+					</li>
+					<li>
+						<a href="#">零售行业</a>
+					</li>
+				</ul>
+				<div style="clear:both"></div>
+				<p>&nbsp;</p>
+				<p class="pull-left" style="color:#6A6A6A">©<a style="color:#6A6A6A" href="http://www.hcdglobal.cn" target="_blank">合得国际</a>版权所有 沪ICP11019876号</p>
+				<!--
+				我们的导师团：师资介绍，分享专题，导师预约
+				免费线下活动：商业精英特战体验班，微课堂
+				商业实训：简介，课程设置，适合对象，实训流程，合作院校，常见问题
+				实习就业：消费品行业，零售行业
+				在新浪微博关注@合得国际商业实训
+				-->				
+			</div>
+		</div>
+	</div>
+	<%= javascript_include_tag "application" %>
+	<!--[if lt IE 9]>
+		<script src="/jqueryui/js/html5.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="/poshytip/jquery.poshytip.js"></script>
+	<script type="text/javascript" src="/slither/script.js"></script>
+	<script type="text/javascript" src="/slither/md5.js"></script>
+	<script type="text/javascript" src="/top.js"></script>	
+	</body>
+</html>
+

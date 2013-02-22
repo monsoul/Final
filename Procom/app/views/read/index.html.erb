@@ -1,0 +1,78 @@
+<style type="text/css">
+.tags-width{
+	position:fixed;
+	width:20%;
+	max-width:260px;
+}
+#show-articles{
+	float:right;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+	$("#procom-body").removeClass("monsoul");
+	$("#procom-container").removeClass("wrapper");
+	$("#procom-container").removeClass("white");
+	$("#procom-body").addClass("monsoul");
+	$("#procom-container").addClass("wrapper");
+	$("#procom-container").addClass("white");
+})
+</script>	
+<script type="text/javascript" src="/read.js"></script>
+<script type="text/javascript" src="/load.js"></script>
+<div style="clear:both;padding:30px 0;"></div>
+<!--dialog tags begin-->
+	<div id="tags-dialog" class="modal fade" style="display:none">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3>选择b标签</h3>
+		</div>
+		<div class="modal-body">
+			<div class="tags-left">
+				<p style="text-align: center;">已经选择的标签</p>
+			</div>
+			<div class="tags-right">
+				<p style="text-align: center;">全部标签</p>
+			</div>
+		</div>
+	</div>
+<!--dialog tags end-->
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span3 tags-width" id="tag-width">
+				<div class="read-well sidebar-nav">
+					<ul class="nav nav-list">
+						<li class="nav-header">最新动态</li>
+						<li class="active select-tags select-type">
+							<a href="#"><i class="icon-white icon-home"></i>最新动态<input type="hidden" value="ATC_O"></a>
+						</li>
+						<li class="select-tags select-type">
+							<a href="#"><i class="icon-heart"></i>特别关注<input type="hidden" value="ATC_EL"></a>
+						</li>
+						<li class="select-tags select-type">
+							<a href="#"><i class="icon-star"></i>合得推荐<input type="hidden" value="ATC_QA"></a>
+						</li>
+						<li class="nav-header">话题
+							<span class="pull-right">
+								<a data-toggle="modal" href="#tags-dialog"  data-keyboard="true" data-backdrop="false"><i class="icon-cog"></i>更多</a>
+							</span>
+						</li>
+						<% @tags.each do |tag| %>
+						<li class="select-tags choose-tags">
+							<a href="#"><i class="icon-tag"></i><%= tag.name%><input type="hidden" value="<%= tag.id %>"><i class="remove-tags icon-remove pull-right close" title="退订该话题"></i></a>
+						</li>
+						<% end %>
+						<li class="nav-header">其他相关</li>
+						<li class="select-tags">
+							<a href="#"><i class="icon-user"></i>相关活动</a>
+						</li>
+						<li class="select-tags">
+							<a href="#"><i class="icon-flag"></i>相关帮助</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="span9" id="show-articles" style="min-height:1000px">
+			</div>
+		</div>
+	</div>

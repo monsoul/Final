@@ -1,0 +1,27 @@
+<script stype="text/javascript">
+$(function(){
+	$(".show-questions a").click(function(event){
+		var content = $(this).attr("title");
+		var question_id=$($(this).find("input[type='hidden']")).val();
+		var question_title=$($(this).find("input[class='my-question-title']")).val();
+		var questionurl="?my_question_id="+question_id;
+		var time=new Date().getTime();
+		time="&t="+time;
+		var myurl="/home/answer"+questionurl+time;
+		$.ajax({
+			type:"GET",
+			url:myurl,
+			success:function(data){
+				$("#show-answers").html(data);
+				$("#question-title-label").html("问题标题:");
+				$("#question-content-label").html("问题描述:");
+				$("#question-title-label").append(question_title);
+				$("#question-content-label").append(content);
+			}
+		});	
+	});
+});
+</script>
+<% @qas.each do |qa| %>
+<a href="#" title="<%= qa.content %>"><%= qa.question_title %><input type="hidden" value="<%= qa.id %>"><input class="my-question-title"type="hidden" value="<%= qa.question_title %>"></a>
+<% end %>

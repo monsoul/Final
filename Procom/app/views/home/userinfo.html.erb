@@ -1,0 +1,20 @@
+<h2 style="color:#9A9A9A"><%=@user_app.keywords%></h2>
+<div class="user-info-box">
+	<p class="user-info-p">
+		<span style="color:#9A9A9A;font-size:30px;font-weight:bold">“</span>
+		<%=@user_app.comments%>
+		<span style="color:#9A9A9A;font-size:30px;font-weight:bold">”</span>
+	</p>
+</div>
+<% if is_teacher(@user) %>
+<p class="user-info-p pull-right">导师,<%= @user.real_name%></p>
+<% else %>
+<p class="user-info-p pull-right">优秀学员,<%= @user.real_name%></p>
+<% end %>
+<div class="div-clear-0"></div>
+<p class="pull-right">
+	<a class="btn btn-warning btn-large user-learn-more" href="#">
+		了解TA
+		<input type="hidden" value="<%=@user.id%>">
+	</a>
+</p>

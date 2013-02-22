@@ -1,0 +1,15 @@
+<script stype="text/javascript">
+$(function(){
+	$(".show-schools a").click(function(event){
+		event.preventDefault();
+		var school = $(this).attr("title");
+		var schoolid=$($(this).find("input[type='hidden']")).val();
+		$("#applicant_schoolid").val(schoolid);
+		$("#applicant_school").val(school);
+		$("#applicant-dialog").modal('show');
+	});
+});
+</script>
+<% @schools.each do |school| %>
+<a href="#" title="<%= school.school_name %>"><%= school.school_name %><input type="hidden" value="<%= school.id %>"></a>
+<% end %>

@@ -1,0 +1,21 @@
+<script type="text/javascript">
+	$(function(){
+		var userid=$.cookie("userid");
+		var username=$.cookie("username");
+		if(userid!=null&&username!=null){
+			$(".article-alert").css("display","none");
+		}
+		else{
+			$(".article-alert").css("display","block");		
+		}
+	});
+</script>
+<div id="all-articles" style="display:none">
+	<input type="hidden" id="total-count" value="<%= @count %>">
+	<input type="hidden" id="ajax-params" value="<%= @ajaxurl %>">
+	<input type="hidden" id="load-type" value="load-articles">
+	<div class="alert fade in article-alert">
+		<strong>Hello !</strong>关注Procom 请注册账号
+		<a class="btn btn-primary btn-large" data-toggle="modal" href="#applicant-dialog"  data-keyboard="true" data-backdrop="true">我要报名 »</a>
+	</div>
+</div>

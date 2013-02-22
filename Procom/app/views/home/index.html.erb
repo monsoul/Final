@@ -1,0 +1,152 @@
+<script type="text/javascript">
+$(function(){
+	move_up(".plan",1);
+	move_up(".structure",1000);
+	move_up(".collaborate",2000);
+	move_up(".deliver",3000);
+	$($(".img-close")[0]).addClass("img-active");
+	$('.carousel').carousel({
+	    interval: false
+	});
+	$("#procom-body").removeClass("monsoul");
+	$("#procom-container").removeClass("wrapper");
+	$("#procom-container").removeClass("white");
+	$("#procom-read").removeClass("active");
+	$("#myCarousel").css("display","block");
+	$(".space-button-well").css("display","block");
+	$("#footer").css("display","block");
+});
+</script>
+<div class="container-fluid">
+	<div class="div-clear-20"></div>
+	<div class="row space-well" style="margin-left:0px">
+		<div class="span" style="width:378px;margin-left:0px;">
+			<div class="select-pic" style="">
+				<% @student1s.each do |student1| %>
+				<a class="select-pic-a" href="#">
+					<img class="img-close img-normal" src="<%= student1.pic %>" title="点击图像显示详情">
+					<input type="hidden" value="<%= student1.id %>">
+				</a>
+				<% end %>
+			</div>
+			<div style="clear:both;padding: 2px 0;"></div>
+			<div class="select-pic" style="margin-left:px">
+				<% @student2s.each do |student2| %>
+				<a href="#">
+					<img class="img-close img-normal" src="<%= student2.pic %>" title="点击图像显示详情">
+					<input type="hidden" value="<%= student2.id %>">
+				</a>
+				<% end %>
+			</div>
+			<div style="clear:both;padding: 2px 0;"></div>
+			<div class="select-pic" style="margin-left:px">
+				<% @teacher1s.each do |teacher1| %>
+				<a href="#">
+					<img class="img-close img-normal" src="<%= teacher1.pic %>" title="点击图像显示详情">
+					<input type="hidden" value="<%= teacher1.id %>">
+				</a>
+				<% end %>
+			</div>
+			<div style="clear:both;padding: 2px 0;"></div>
+			<div class="select-pic" style="margin-left:px">
+				<% @teacher2s.each do |teacher2| %>
+				<a href="#">
+					<img class="img-close img-normal" src="<%= teacher2.pic %>" title="点击图像显示详情">
+					<input type="hidden" value="<%= teacher2.id %>">
+				</a>
+				<% end %>
+			</div>
+		</div>
+		<div class="span pull-right" style="width:450px;margin:0px">
+			<div id="user-info">
+				<h2 style="color:#9A9A9A"><%=@student_app.keywords%></h2>
+				<div class="user-info-box">
+					<p class="user-info-p">
+						<span style="color:#9A9A9A;font-size:30px;font-weight:bold">“</span>
+						测试时是事实上，测试时是事实上，测试时是事实上，测试时是事实上，测试时是事实上，测试时是事实上，测试时是事实上，测试时是事实上，测试时是事实上
+						<span style="color:#9A9A9A;font-size:30px;font-weight:bold">”</span>
+					</p>
+				</div>
+				<p class="user-info-p pull-right">优秀学员，<%= @student.real_name%></p>
+				<div class="div-clear-0"></div>
+				<div class="pull-right">
+					<a class="btn btn-warning btn-large user-learn-more" href="#">了解TA<input type="hidden" value="<%=@student.id%>"></a>
+				</div>
+				<div style="clear:both"></div>
+			</div>
+		</div>
+	</div>
+	<div class="div-clear-15"></div>
+	<div class="row space-well" style="margin-left:0px">
+		<div class="span" style="width:368px;margin-left:0px">
+			<img class="img-tilt" width="368px" src="/images/enterprise.jpg">
+		</div>
+		<div class="span pull-right" style="width: 450px; margin:0px">
+			<h2 style="color:#9A9A9A">Gather content from your subject matter experts easily.</h2>
+			<ul class="green-checks">
+				<li>Collaborate and provide guidance</li>
+				<li>Keep content structured, in a centralised place</li>
+				<li>Track changes, and see who has done what</li>
+				<li>Automatically send deadline reminders</li>
+				<li>Save huge amounts of time and money</li>
+			</ul>
+			<p>
+				<a class="btn btn-warning btn-large" href="#">了解更多 »</a>
+				<a class="btn btn-warning btn-large" data-toggle="modal" href="#applicant-dialog"  data-keyboard="true" data-backdrop="true">免费注册 »</a>
+			</p>
+		</div>
+	</div>
+	<div class="div-clear-15"></div>
+	<div class="row space-well" style="margin-left:0px">
+		<div class="span" style="width: 450px; margin-left: 0px;">
+			<h2 style="color:#9A9A9A">Get the content you need from your clients. Organised and on time.</h2>
+			<ul class="green-checks">
+				<li>Collaborate with your team and clients</li>
+				<li>Keep content structured, in a centralised place</li>
+				<li>Track changes, and see who has done what</li>
+				<li>Export content directly into your CMS</li>
+				<li>Save huge amounts of time and money</li>
+			</ul>
+			<p>
+				<a class="btn btn-warning btn-large" href="#">了解更多 »</a>
+				<a class="btn btn-warning btn-large" data-toggle="modal" href="#applicant-dialog"  data-keyboard="true" data-backdrop="true">免费注册 »</a>
+			</p>
+		</div>
+		<div class="span pull-right" style="width:378;margin: 0;">
+			<img src="/images/bloom.jpg" class="img-tilt" width="378px">
+		</div>
+	</div>
+	<div class="div-clear-15"></div>
+	<div class="row" style="margin-left:0px">
+		<div>
+			<img class="school-images-select" src="/images/full_pic/school1.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school2.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school3.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school4.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school5.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school6.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school7.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school8.jpg" width="100">
+			<img class="school-images-select" src="/images/full_pic/school1.jpg" width="100">
+		</div>
+	</div>
+	<div class="div-clear-30"></div>
+	<!--
+	<div class="row" style="margin-left:0px">
+		<div class="span" style="width: 878px; margin-left: 30px;">
+			<h1 style="color:#9A9A9A">Mission&Vision</h1>
+		</div>
+		<div class="span" style="width:210px;margin-left: 30px;">
+			<img src="/hcd.png" width="200px">
+		</div>
+		<div class="span pull-right" style="width:638px;margin:0 30px 0 0">
+			<p>
+				合得国际ProComAcademy（大学生商业素质训练营）是合得国际旗下的非营利性组织，旨在帮助大学生更好地适应职场，搭建高校学术环境与用人单位实际需求间的桥梁。该训练营专注于培养大学生的行业知识、专业素质和职业心态等商业综合素质。合得国际大学生商业素质训练营为青年就业问题提供了独特而高效的解决措施。
+			</p>
+			<p>
+				合得国际ProComAcademy（大学生商业素质训练营）是合得国际旗下的非营利性组织，旨在帮助大学生更好地适应职场，搭建高校学术环境与用人单位实际需求间的桥梁。该训练营专注于培养大学生的行业知识.专业素质和职业心态等商业综合素质。合得国际大学生商业素质训练营为青年就业问题提供了独特而高效的解决措施。
+			</p>
+		</div>
+	</div>				
+	-->
+</div>

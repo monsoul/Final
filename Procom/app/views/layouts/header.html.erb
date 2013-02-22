@@ -1,0 +1,220 @@
+<html>
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<link href="/favicon.ico" rel="shortcut icon">
+	    <title>Procom Academy</title>
+		<%= stylesheet_link_tag "application" %>
+		<link rel="stylesheet" href="/poshytip/tip-twitter/tip-twitter.css" type="text/css" />
+		<link rel="stylesheet" href="/slither/styles.css">
+		<link rel="stylesheet" href="/jqueryui/css/jquery-ui-1.9.2.custom.css" type="text/css">
+		<script type="text/javascript" src="/jquery.js"></script>
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<style type="text/css">
+		html{overflow-x:hidden; overflow-y:auto;}
+		#file-show{
+			width:300%;
+			left:0;
+			top:0;
+			height:600px;
+			position:relative;
+			overflow:hidden;
+			margin:40px auto 0 auto;
+		}
+		#errorinfo{
+			color:red;
+			visibility:hidden;
+		}
+		#loginbtn{
+			color:#ffffff;
+		}
+		#baidumap{
+			height:300px;
+			width:50%;
+		}
+		#username,#password{
+			height:30px;
+			line-height:30px;
+		}
+		.mapinfo{
+		clear:both;
+		}
+		#baiduinfo{
+			float:right;
+			width:40%;
+		}
+		.navbar-inners {
+		    background-color: transparent;
+		}
+		</style>
+		<script type="text/javascript">
+		$(function(){
+			$( "#login-btn" ).click(function( event ) {
+				$( "#dialog" ).dialog( "open" );
+				$("#dialog").css("display","none");
+				$("#dialog").fadeIn(1000);
+				event.preventDefault();
+			});
+			var userid=$.cookie("userid");
+			var username=$.cookie("username");
+			if(userid!=null&&username!=null){
+				$("#login-btn").html(username);
+				$("#login-out").html("注销");
+				$("#login-out").css("display","block");
+				}
+				else{
+					$("#login-btn").html("Procom论坛");
+					$("#login-out").html("");
+					$("#login-out").css("display","none");
+			}
+			$('.teacher-pic').poshytip({
+				className: 'tip-twitter',
+				content: function(updateCallback) {
+				var value=$(this).find("input[type='hidden']").val();
+				return value;
+				},
+				showTimeout: 1,
+				alignTo: 'target',
+				alignX: 'center',
+				offsetY: 5,
+				allowTipHover: false,
+				fade: false,
+				slide: false
+				});
+				$( "#dialog" ).dialog({
+					autoOpen: false,
+					bgiframe: true,
+					modal:true,
+					resizable:false,
+					width: 400,
+					position: ["center",200],
+					beforeClose: function(event, ui) {  
+					}, 
+					buttons: [
+						{
+							text: "取消",
+							click: function() {
+								$( this ).dialog( "close" );
+								}
+							}
+							]
+						});   
+			$(".index-link a").die("click");
+			$(".index-link a").live('click',function(){
+				//alert("2!");
+				myajax(this);
+			});
+			$("#loginbtn").click(function(event){
+				event.preventDefault();
+				$("#errorinfo").css("visibility","hidden");				
+				var params=$('input').serialize();
+				$.ajax({
+					type:"POST",
+					url:"/home/login",
+					data:params,
+					datatype:"json",
+					success:function(data){
+						if(data.message=="success"){
+							$("#dialog").dialog("close");
+							username=$.cookie("username");
+							$("#login-btn").html(username);
+							$("#login-out").html("注销");
+							$("#login-out").css("display","block");
+							}
+						else{
+							$("#errorinfo").html("用户名或密码错误");
+							$("#errorinfo").css("visibility","visible");
+							return;
+							}
+					}
+				});
+			});
+		});
+		function myajax(name) { 
+            var realurl = $(name).find("input[type='hidden']");
+            var time=new Date().getTime();
+            time="?t="+time;
+            var myurl = realurl.val()+time;
+            $.ajax({
+             cache:false,
+             type: "GET",
+             url: myurl,
+             success: function (data) {
+                 $(".container").html(data);
+             }
+         });
+		};
+		</script>
+	</head>
+	<body style="width:100%">
+		<div class="navbar navbar-fixed-top">
+		      <div class="navbar-inner">
+		        <div class="container">
+		          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		          </a>
+		          <a class="brand" href="#">ProCom Academy</a>
+		          <div class="nav-collapse">
+		            <ul class="nav" style="float:right">
+		              <li class="active index-link">
+						<a href="#"><input type="hidden"value="/home/index">首页</a></li>
+					  <li class="index-link"><a href="#">Procom阅读<input type="hidden" value="/read/index"></a></li>
+		              <li><a id ="login-btn" href="#">Procom论坛
+		              </a></li>
+		              <li><a id ="login-out" href="/home/loginoff" style="display:none">
+		              </a></li>
+		            </ul>
+		          </div><!--/.nav-collapse -->
+		        </div>
+		      </div>
+			<!-- ui-dialog -->
+		</div>
+		<div class="navbar-inners" style="width:100%;display:none">
+			<div id="file-show">
+				<div class="step" id="step1">
+				    <div class="infomation">
+				        <h1>微课堂</h1>
+						<h4>							我这不啊是大会上的空间安徽省的健康哈送大家哈市的阿斯顿和骄傲是肯定会阿娇说的话，我这不啊是大会上的空间安徽省的健康哈送大家哈市的阿斯顿和骄傲是肯定会阿娇说的话，我这不啊是大会上的空间安徽省的健康哈送大家哈市的阿斯顿和骄傲是肯定会阿娇说的话 
+						</h4>
+						<a href="#" class="button next">Next</a>
+						<a href="#" class="button end">End</a>
+				    </div>
+				</div>
+
+				<div class="step" id="step2">
+				    <div class="information">
+				        <h1>Step 2</h1>
+				        <h2>Procom Academy Infomation</h2>
+						<a href="#" class="button back">Back</a>
+						<a href="#" class="button finish">Finish!</a>
+				    </div>
+				</div>
+
+				<div class="step" id="step3">
+				    <div class="information">
+				        <h1>Part 3</h1>
+				        <h2>welcome to Procom Academy </h2>
+						<a href="#" class="button back">Back</a>
+				        <a href="#" class="button again">Again</a>
+				    </div>
+				</div>
+			</div>
+		</div>
+				<div class="container">
+<hr>
+</div>
+		</div>
+		<%= javascript_include_tag "application" %>
+		<!--[if lt IE 9]>
+	      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	    <![endif]-->
+		<script type="text/javascript" src="/poshytip/jquery.poshytip.js"></script>
+		<script type="text/javascript" src="/slither/script.js"></script>
+		<script type="text/javascript" src="/slither/md5.js"></script>
+		<script type="text/javascript" src="/jqueryui/js/jquery-ui-1.9.2.custom.js"></script>
+		<script type="text/javascript">
+		</script>
+	</body>
+</html>

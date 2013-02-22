@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta name="csrf-token" content="<%= form_authenticity_token %>" />
+		<meta name="csrf-param" content="authenticity_token" />
+		<link href="/favicon.ico" rel="shortcut icon">
+		<title>Procom Academy</title>
+		<link rel="stylesheet" href="/video-js/video-js.css" type="text/css" />		
+		<script type="text/javascript" src="/video-js/video.js"></script>
+		<script type="text/javascript">
+		</script>
+	</head>
+	<body data-offset="50" data-target=".subnav" data-spy="scroll" class="monsoul">
+	    <!-- Begin VideoJS -->
+	   <div class="video-js-box" style="margin:20px auto">
+	     <!-- Using the Video for Everybody Embed Code http://camendesign.com/code/video_for_everybody -->
+	       <!-- Flash Fallback. Use any flash video player here. Make sure to keep the vjs-flash-fallback class. -->
+	       <object id="flash_fallback_1" class="vjs-flash-fallback" width="640" height="264" type="application/x-shockwave-flash"
+	         data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf">
+<!--	         <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />-->
+			 <param name="movie" value="http://edu.hcdglobal.com/download/video-js/swf/video-js.swf" />
+	         <param name="allowfullscreen" value="true" />
+	         <param name="flashvars" value='config={"playlist":["http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png", {"url": "http://edu.hcdglobal.com/download/video-js/swf/oceans-clip.mp4","autoPlay":false,"autoBuffering":true}]}' />
+	         <!-- Image Fallback. Typically the same as the poster image. -->
+	         <img src="http://edu.hcdglobal.com/download/video-js/img/oceans-clip.png" width="640" height="264" alt="Poster Image"
+	           title="No video playback capabilities." />
+	       </object>
+	     <!-- Download links provided for devices that can't play video in the browser. -->
+	   </div>
+	   <!-- End VideoJS -->
+	</div>
+</html>

@@ -1,0 +1,53 @@
+<script type="text/javascript">
+$(function(){
+	$("#procom-body").removeClass("monsoul");
+	$("#procom-container").removeClass("wrapper");
+	$("#procom-container").removeClass("white");
+})
+</script>
+<script type="text/javascript" src="/editinfo.js"></script>
+<div style="clear:both;padding:30px 0;"></div>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span9">
+			<div class="space-well">
+				<h3>修改密码</h3>
+				<form id="applicant-form" class="well form-horizontal" method="POST" action="/home/editinfo">
+					<fieldset>
+						<p id="error-applicant" class="help-block"></p>
+						<div class="control-group">
+							<label class="control-label" for="eidt_old_password">旧密码</label>
+							<div class="controls">
+								<input type="password" class="span3" id="eidt_old_password" name="eidt_old_password" placeholder="请输入旧密码...">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="eidt_new_password">新密码</label>
+							<div class="controls">
+								<input type="password" class="span3" id="eidt_new_password" name="eidt_new_password" placeholder="请输入新密码...">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="eidt_repeat_password">重复密码</label>
+							<div class="controls">
+								<input type="password" class="span3" id="eidt_repeat_password" name="eidt_repeat_password" placeholder="再次输入密码...">
+							</div>	
+						</div>
+						<div class="form-actions">
+							<a class="btn btn-primary" id="save-password">修改密码</a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+		<div class="span3">
+			<div class="space-well" style="padding:35px 50px">
+				<img class="uface" style="width:120px;height:120px;" src="http://ruby-china.org/avatar/c5960d99512f76349a9d15559e587949.png?s=240&d=404" alt="C5960d99512f76349a9d15559e587949">
+			</div>	
+			<div style="margin-top:-50px;text-align:center">
+				如需修改头像，请进入
+				<a href="http://www.gravatar.com">gravatar.com</a>	
+			</div>	
+		</div>
+	</div>
+</div>

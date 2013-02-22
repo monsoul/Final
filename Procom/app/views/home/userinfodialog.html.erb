@@ -1,0 +1,39 @@
+<script type="text/javascript">
+$(function(){
+	var score=$("#teacher-star-score").val();
+	$('#teacher-star').raty({
+	  readOnly : true,
+	  score    : score
+	});	
+});
+</script>
+
+<div class="modal-header">
+	<a class="close" style="margin-top:0px" data-dismiss="modal">×</a>
+	<h4 style="text-align:center;color:#9A9A9A"><%= @user.real_name %></h3>	
+</div>
+<div class="modal-body" id="userinfo-modal-body">
+	<div id="teacher-modal-background">
+		<div>
+			<img id="userinfo-pic" src="<%= @user.pic%>" width="100px">
+		</div>
+		<div style="text-align:center;">
+			<h3 style="color:#FFFFFF"><%= @user.real_name %>'s Title</h3>
+			<h3 style="color:#FFFFFF"><%= @user.real_name %></h3>
+		</div>
+	</div>
+	<% if is_teacher(@user) %>
+	<div id="user-modal-info">
+		<div id="teacher-star"></div>
+		<p>学生评分:<%= @user.score %></p>
+		<input type="hidden" id="teacher-star-score" value="<%= @user.score %>">
+	</div>
+	<div id="user-modal-button" class="select-teacher-ask" style="float:right;margin:20px">
+		<a class="btn btn-info" id="user-modal-ask" title="<%= @user.real_name %>">提交问题<input type="hidden" value="<%= @user.id %>"></a>
+	</div>
+	<div style="clear:both"></div>
+	<% end %>
+	<div id="user-bio">
+		This is the infomation for <%= @user.real_name %>
+	</div>
+</div>

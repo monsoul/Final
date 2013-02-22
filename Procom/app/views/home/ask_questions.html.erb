@@ -1,0 +1,27 @@
+<script type="text/javascript">
+	$(function(){
+		$(".question_title a").click(function(event){
+			event.preventDefault();
+			var div_content=$("#question_content");
+			div_content.css("display","block");
+			var question_title=$(this).html();
+			var question_content=$(this).attr("title");
+			var question_id=$($($(this).parent()).find("input[type='hidden']")).val();
+			var ask_userid=$($($(this).parent()).find("input[class='ask_user_id']")).val();
+			$("#answer-title").html("问题标题:");
+			$("#answer-content").html("问题描述:");			
+			$("#answer-title").append(question_title);
+			$("#answer-content").append(question_content);
+			$("#answer_id").val(question_id);
+			$("#answer_title").val(question_title);
+			$("#ask_user_id").val(ask_userid);
+		});
+	});
+</script>
+<% @qas.each do |qa| %>
+<div class="question_title">
+	<a href="#" title="<%= qa.content %>"><%= qa.question_title %></a>
+	<input type="hidden" value="<%= qa.id %>">
+	<input class="ask_user_id" type="hidden" value="<%= qa.ask_user_id %>">
+</div>
+<% end %>

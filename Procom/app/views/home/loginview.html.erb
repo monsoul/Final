@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>登录/注册</title>
+<script type="text/javascript" src="/jquery.js"></script>
+<%= javascript_include_tag "application" %>
+
+<style type="text/css">
+#error,#register-error {
+	visibility: hidden;
+}
+
+#lab-error,#reg-error {
+	visibility: hidden;
+	color: red;
+}
+</style>
+<link rel="stylesheet" href="/loginview/master.css" type="text/css" />
+<script type="text/javascript">
+$(function () {
+
+	$(".cleanForm").live('click',function(){
+		$("#register").removeClass("valid");
+		});
+	
+	$("#register").live('click',function(){
+/*
+		//验证数据
+		 if(!$("#username").hasClass("valid")){
+			 return;
+        }
+		 if(!$("#nickname").hasClass("valid")){
+			 return;
+        }
+		 if(!$("#password").hasClass("valid")){
+			 return;
+        }
+		 if(!$("#rpassword").hasClass("valid")){
+			 return;
+        }
+		 if(!$("#birthday").hasClass("valid")){
+			 return;
+        }
+*/
+		var params=$('input').serialize();
+		alert(params);
+/*		var sex=$("#sexselect").val();
+		if(sex=='male'){
+			sex="男";
+		}
+		else{
+			sex="女";
+		}
+		var value="&sex="+sex;
+		params+=value;
+		*/
+		var res=params.indexOf("terms=on");
+		if(res!=-1)
+		{
+			$("#reg-error").html("注册中请稍后....");
+			$("#reg-error").css("color","#3D3E41");
+			$("#reg-error").css("visibility","visible");
+			
+			$.ajax({
+				type:"POST",
+				url:"/home/register",
+				data:params,
+				datatype:"json",
+				success:function(data){
+					if(data.message=="success")
+					{
+						$("#reg-error").css("color","#3D3E41");
+						$("#reg-error").css("visibility","hidden");
+						window.location.href='/index/index';
+					}
+    				else
+    				{
+    					$("#reg-error").html(res.info);
+    					$("#reg-error").css("color","red");
+    					$("#reg-error").css("visibility","visible");
+    					
+        				}
+        			},
+        			complete: function() { 
+        				$("#register").removeClass("valid");
+            			}
+				});
+			}
+		else
+		{
+			$("#reg-error").html("请先同意用户协议.");
+			$("#reg-error").css("color","red");
+			$("#reg-error").css("visibility","visible");
+			}
+		$("#register").removeClass("valid");
+		});
+	
+	$("#username").focus(function(){
+        $("#em-username").html("需用邮箱注册.例如123456@qq.com");
+		$("#username").removeClass("error");
+		$("#username").removeClass("valid");
+		});
+	//验证用户名是否存在
+	$("#username").blur(function(){
+		var username=$("#username").val();
+		var filter=/^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,3}|\d+)$/;
+        if (filter.test(username)) {
+        	$("#em-username").html("验证中,请稍等......");
+			$("#username").removeClass("error");
+			$("#username").removeClass("valid");
+        	var params="username="+username;
+        	$.ajax({
+    			type:"POST",
+    			url:"/home/check",
+    			data:params,
+    			datatype:"json",
+    			success:function(data){
+    			//	var res=eval('(' + data + ')');
+    				if(data.message=="success")
+    				{
+    		        	$("#em-username").html("可以注册");
+    					$("#username").addClass("valid");
+        				}
+    				else
+    				{
+    		        	$("#em-username").html("该用户已注册");
+    					$("#username").addClass("error");
+        				}
+        			}
+            	});
+        }
+        else
+        {
+            $("#em-username").html("需用邮箱注册.例如123456@qq.com");
+            return false;
+            }
+		});
+	//验证密码
+	$("#password").blur(function(){
+		var password=$("#password").val();
+		var rpassword=$("#rpassword").val();
+		if(password!=rpassword)
+		{
+            $("#em-password").html("两次密码不一致");
+			$("#rpassword").removeClass("error");
+			$("#rpassword").removeClass("valid");
+			$("#rpassword").addClass("error");
+			}
+		});
+	//验证密码
+	$("#rpassword").blur(function(){
+		var password=$("#password");
+		var rpassword=$("#rpassword");
+		  var filter = /^[\@@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,16}$/;
+
+          if (rpassword.val() != password.val()) {
+              $("#em-password").html("两次密码不一致");
+    			$("#rpassword").removeClass("error");
+    			$("#rpassword").removeClass("valid");
+    			$("#rpassword").addClass("error");
+          }
+          if (!filter.test(rpassword.val())) {
+              $("#em-password").html("密码为6到16位");
+    			$("#rpassword").removeClass("error");
+    			$("#rpassword").removeClass("valid");
+    			$("#rpassword").addClass("error");
+          }
+          else if (rpassword.val() == password.val()) {
+              $("#em-passowrd").html("再次输入密码");
+    			$("#rpassword").removeClass("error");
+    			$("#rpassword").removeClass("valid");
+    			$("#rpassword").addClass("valid");
+          }
+	});
+		$("#rpassword").focus(function(){
+            $("#em-passowrd").html("再次输入密码");
+			$("#rpassword").removeClass("error");
+			$("#rpassword").removeClass("valid");
+			});
+	$("#sigin").live('click', function() {
+		var username=$("#login-username").val();
+		var password=$("#login-password").val();
+		if(username.length<6||password.length<6)
+		{
+			$("#lab-error").html("登录失败.");
+			$("#lab-error").css("visibility","visible");
+			return;
+			}
+		else
+		{
+			$("#lab-error").css("visibility","hidden");
+			}
+		var params=$('input').serialize();
+		$.ajax({
+			type:"POST",
+			url:"/home/login",
+			data:params,
+			datatype:"json",
+			success:function(data)
+			{
+			//	var res=eval('(' + data + ')');
+				if(data.message=="success")
+				{
+					$("#lab-error").css("visibility","hidden");
+					//登录跳转,暂时跳转到主页
+					window.location.href='/home/index';
+					}
+				else
+				{
+					$("#lab-error").html("用户名或密码错误或账号未激活.");
+					$("#lab-error").css("visibility","visible");
+					return;
+					}
+				}
+			});
+		});
+});
+</script>
+</head>
+<body>
+	<div id="pageContainer">
+		<!-- Tabs -->
+		<ul id="tabs" class="clearfix">
+			<li class="activeTab" id="signInTab">
+				<div class="signInTabContent">
+					<span>已有帐号?</span>
+					<h1>快速登录</h1>
+				</div> <span class="activeTabArrow">
+					<!-- -->
+			</span>
+			</li>
+			<li class="inactiveTab" id="signUpTab">
+				<div class="signUpTabContent">
+					<span>没有帐号?</span>
+					<h1>赶紧注册</h1>
+				</div> <span class="activeTabArrow">
+					<!-- -->
+			</span>
+			</li>
+		</ul>
+		<!-- Sign In Tab Content -->
+		<div id="signIn" class="toggleTab">
+			<form action="/home/login" method="POST" class="cleanForm">
+				<fieldset>
+					<p>
+						<label for="login-username">Your Username:</label> 
+						<input type="text" id="login-username" name="login_username" value="" 
+						autofocus required/>
+					</p>
+					<p>
+						<label for="login-password">Your Password:</label> 
+						<input type="password" id="login-password" name="login_password" value="" required />
+					</p>
+					<div class="distanceLeft">
+						<input type="checkbox" id="remember-me" name="remember-me" /> 
+						<label for="remember-me">记住我</label>
+					</div>
+					<input type="button" value="Sign In" id="sigin" />
+					<div class="distanceLeft">
+						<input type="checkbox" id="error" name="error" /> 
+						<label for="error" id="lab-error"></label>
+					</div>
+					<div class="formExtra">
+						<p>
+							<strong>Trouble signing in?</strong>
+						</p>
+						<p>
+							<a href="#">忘记密码</a> or <a href="#">使用其他帐号登录</a>
+						</p>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<!-- end signIn -->
+		<!-- Sign Up Tab Content -->
+		<div id="signUp" class="clearfix toggleTab">
+			<form action="/home/register" method="POST" class="cleanForm" id="signUpForm">
+				<fieldset>
+					<p>
+						<label for="username">UserName: <span class="requiredField">*</span></label> 
+						<input type="text" id="username" name="username"  class="required"  		pattern="^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,3}|\d+)$" value=""  required /> 
+						<em id="em-username">需用邮箱注册.例如123456@qq.com</em>
+					</p>
+					<p>
+						<label for="email">Email: <span class="requiredField">*</span></label> 
+						<input type="text" id="email" name="email"  class="required"  		pattern="^\w+[\+\.\w-]*@([\w-]+\.)*\w+[\w-]*\.([a-z]{2,3}|\d+)$" value=""  required /> 
+						<em id="em-username">需用邮箱注册.例如123456@qq.com</em>
+					</p>
+					<p>
+						<label for="real_name">RealName: <span class="requiredField">*</span></label> 
+						<input type="text" id="real_name" name="real_name" pattern="^[\u0391-\uFFE5A-Za-z0-9]{2,6}$"  value="" required /> 
+						<em>2到6位.</em>
+					</p>
+					<p>
+						<label for="password">Password: <span class="requiredField">*</span></label> 
+						<input type="password" id="password" name="password" value="" pattern="^[\@@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,16}$" required /> 
+						<em>密码为6到16位</em>
+					</p>
+					<p>
+						<label for="rpassword">Confirm Password:<span class="requiredField">*</span></label>
+						<input type="password" id="rpassword" name="rpassword" value="" pattern="^[\@@A-Za-z0-9\!\#\$\%\^\&\*\.\~]{6,16}$" required />
+						<em id="em-password">再次输入密码</em>
+					</p>
+					<p>
+						<label for="Phone">Mobile:<span class ="requiredField">*</span></label>
+						<input type="text" id="mobile" name="mobile" pattern="^[0-9]{2,15}$" value="" required />
+						<em>填写联系电话（最多15位）</em>
+					</p>					
+					<div class="distanceLeft">
+						<input type="checkbox" id="terms" name="terms" /> <label for="terms">我已经阅读并同意 
+							<a href="#">用户协议</a>.
+						</label>
+					</div>
+					<input type="button"   value="Register" id="register" name="register" class="" />
+					<div class="distanceLeft">
+						<input type="checkbox" id="register-error" name="register-error" /> <label for="register-error" id="reg-error"></label>
+					</div>
+					<div class="formExtra">
+						<p id="note-p">
+							<strong>注意: </strong> 请先同意用户协议
+						</p>
+					</div>
+				</fieldset>
+			</form>
+			<!-- Sidebar -->
+			<div id="sidebar">
+				<h3>注册注意事项</h3>
+				<ul>
+					<li>带<span class="requiredField">*</span>为必填项</li>
+					<li>在您输入时优先验证格式是否符合</li>
+					<li>输入结束时验证数据是否符合</li>
+					<li>感谢您注册本站会员</li>
+				</ul>
+			</div>
+			<!-- end sidebar -->
+		</div>
+		<!-- end signUp -->
+	</div>
+	<!-- end pageContainer -->
+	<!-- Include the JS files -->
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<label id="question-title-label"></label>
+<label id="question-content-label"></label>
+<% if @qa %>
+<label id="answer-content-label">问题回答:<%= @qa.content %></label>
+<% else %>
+<label id="answer-content-label">问题回答:sorry,暂无回答</label>
+<% end %>

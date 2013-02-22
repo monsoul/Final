@@ -1,0 +1,148 @@
+<% if is_common(@article) %>
+<div class="row read-well article-well">
+	<div class="span5 pull-left" style="margin:0px">
+		<dl class="dl-horizontal dl-article">
+			<dt>
+				<img src="<%= @ask_user.pic %>" width="50px" height="50px">
+			</dt>
+			<dd>
+				<h4>Question from :<%= @ask_user.real_name %></h4>
+			</dd>
+			<dd>
+				<h5><small><%= @ask.updated_at %></small></h5>
+			</dd>
+			<dd class="choose-tags">
+				<% @tags.each do |tag| %>
+				<a href="#"><i class="icon-tag"></i><%= tag.name %><input type="hidden" value="<%= tag.id %>"></a>
+				<% end %>
+			</dd>
+		</dl>
+	</div>
+	<div class="span3 pull-right" style="margin:0px">
+		<div class="btn-toolbar" style="margin-top:22px;float:right;">
+			<div class="btn-group">
+				<a class="btn btn-danger"><i class="icon-white icon-heart"></i>收藏</a>
+			</div>
+			<div class="btn-group">
+				<button class="btn btn-info">分享</button>
+				<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li class="sina-share-qa">
+						<a href="#">新浪微博</a>
+					</li>
+					<li>
+						<a href="#">其他</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="#">其他操作</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="div-clear-10"></div>
+	<div class="span8 pull-left" style="margin:0px;width:95%">
+		<p>
+			<%= @ask.content %>
+		</p>
+		<!--<p><a href="#">查看全文</a></p>-->
+	</div>
+	<div class="div-clear-10"></div>
+	<div class="span8 pull-left" style="margin:0px;width:95%">
+		<dl class="dl-horizontal dl-article">
+			<dt>
+				<img src="<%= @asked_user.pic %>" width="50px" height="50px">
+			</dt>
+			<dd>
+				<h4>Answer from :<%= @asked_user.real_name %></h4>
+			</dd>
+			<dd>
+				<h5><small><%= @answer.updated_at %></small></h5>
+			</dd>
+			<dd class="choose-tags">
+				<% @tags.each do |tag| %>
+				<a href="#"><i class="icon-tag"></i><%= tag.name %><input type="hidden" value="<%= tag.id %>"></a>
+				<% end %>
+			</dd>
+		</dl>
+	</div>
+	<div class="div-clear-10"></div>
+	<div class="span8 pull-left" style="margin:0px;width:95%">
+		<p>
+			<%= @answer.content %>
+		</p>
+		<p>
+			<a href="/read/showarticle?article_id=<%= @article.id %>" target="_blank">查看全文<input type="hidden" value="<%= @article.id %>"></a>
+		</p>
+			
+	</div>
+</div>
+<% else %>
+<div class="row read-well article-well">
+	<div class="span5 pull-left" style="margin:0px">
+		<dl class="dl-horizontal dl-article">
+			<dt>
+				<img src="<%= @user.pic %>" width="50px" height="50px">
+			</dt>
+			<dd>
+				<h4><%= @article.title%></h4>
+			</dd>
+			<dd>
+				<h5><small><%= @article.updated_at %></small></h5>
+			</dd>
+			<dd class="choose-tags">
+				<% @tags.each do |tag| %>
+				<a href="#"><i class="icon-tag"></i><%= tag.name %><input type="hidden" value="<%= tag.id %>"></a>
+				<% end %>
+			</dd>
+		</dl>
+	</div>
+	<div class="span3 pull-right" style="margin:0px">
+		<div class="btn-toolbar" style="margin:22px 0px 0px 0px;float:right;">
+			<div class="btn-group">
+				<a class="btn btn-danger"><i class="icon-white icon-heart"></i>收藏</a>
+			</div>
+			<div class="btn-group">
+				<button class="btn btn-info btn-share" id="btn-share-sina">分享</button>
+				<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li class="sina-share">
+						<a href="#">新浪微博</a>
+					</li>
+					<li>
+						<a href="#">其他</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="#">其他操作</a>
+					</li>
+				</ul>
+		    </div>
+		</div>
+	</div>
+	<div class="div-clear-10"></div>
+	<div class="span5 pull-left" style="margin:0px;width:60%">
+		<p>
+			<%= @article.brief%>
+		</p>
+		<p>
+			<%if is_el(@article)%>
+			<a href="<%= @article.content %>" target="_blank">查看全文<input type="hidden" value="<%= @article.id %>"></a>
+			<% else %>
+			<a href="/read/showarticle?article_id=<%= @article.id %>" target="_blank">查看全文<input type="hidden" value="<%= @article.id %>"></a>
+			<% end %>
+		</p>
+	</div>
+	<div class="span3 pull-right" style="margin:0px;width:35%">
+		<p class="span3-img" style="float:right">
+			<img src="<%= @article.pic %>" width="260px" height="180px" style="float:right">
+		</p>
+	</div>
+</div>
+<% end %>
+

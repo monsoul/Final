@@ -1,0 +1,16 @@
+<script stype="text/javascript">
+$(function(){
+	$(".show-teachers a").click(function(event){
+		event.preventDefault();
+		var teacher = $(this).attr("title");
+		var teacherid=$($(this).find("input[type='hidden']")).val();
+		$("#teacher_id").val(teacherid);
+		$("#ask_user").val(teacher);
+//		$("#teacher-dialog").modal('hide');
+		$("#qa-dialog").modal('show');
+	});
+});
+</script>
+<% @teachers.each do |teacher| %>
+<a href="#" title="<%= teacher.real_name %>"><%= teacher.real_name %><input type="hidden" value="<%= teacher.id %>"></a>
+<% end %>
