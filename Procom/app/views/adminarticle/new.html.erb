@@ -1,0 +1,111 @@
+        
+
+        <div class="span9">
+         
+              <h1>New Article</h1>
+              <hr/>
+              <form action='/adminarticle/create' method='post' onsubmit='return verify()' enctype="MULTIPART/FORM-DATA">
+                <label>标题</label>
+                <input class="field span6" type='text' name='article[title]' id='title' size='50'/>
+                <label>内容</label>
+                <textarea class="field span6" name='article[content]' id='content' rows='10' cols='50'></textarea>
+                <label>概述</label>
+                <textarea class="field span6" name='article[brief]' id='brief' rows='10' cols='50'></textarea>
+
+                <label>上载图片文件</label>
+                  <input type="file" name="article[pic]" /> 
+
+
+                <label>文章类型</label>
+                <select name='article[article_type' onchange='select(this.value)'>
+                  <option value ="ATC_O">原创</option>
+                  <option value ="ATC_EL">外部链接</option>
+                  <option value="ATC_QA">问答</option>
+                </select>
+
+                <div id='ref' style='display:none'>
+                <label>上载外部头像文件</label>
+                  <input type="file" name="article[ref_pic]" /> 
+                </div>
+
+                <div id='qa' style='display:none'>
+                <label>问题的号码</label>
+                <input type='text' name='article[qa_id]'/>
+
+                <a href='/adminarticle/qa' target=_blank>选择问题</a>
+              </div>
+
+
+                <label>标签(鼠标点选，空格分隔)</label>
+                <input class="field span6" type='text' name='tag' id='tag' size='50'/>
+
+                      <div class="span9" style='margin-bottom:1cm'>
+                        <% @tags.each do |tag| %>
+                                      <div id='tag<%= tag.id %>' style='float:left' onclick='add(<%= tag.id %>)'>  <%= tag.name %>,&nbsp;</div>
+                          <% end %>                  
+                      </div><!--/span-->
+
+                <br/>
+                <br/>
+                <br/>
+
+                <input type='submit' class='btn btn-primary' />
+              </form>              
+
+         
+        </div>
+
+<script>
+function select(articleType){
+  if(articleType=='ATC_QA'){
+    $('#qa').show();
+  }
+  else if(articleType=='ATC_EL'){
+    $('#ref').show();
+  }
+  else{
+    $('#qa').hide();
+    $('#ref').hide();
+
+  }
+}
+
+function add(id){
+  var oldValue = $('#tag').val();
+  var tagName = $('#tag' + id).html();
+  tagName = tagName.substring(0,tagName.lastIndexOf(','));
+  $('#tag').val(oldValue + ' ' + tagName);
+  //alert($('#tag' + id).html());
+}
+
+function verify(){
+  result = true;
+
+  //
+  if($('#title').val()==''){
+    alert('title blank');
+    result = false;
+  };
+
+/*
+  //email
+  var email = $('#email').val();
+  var emailPat=/^(.+)@(.+).(.+)$/;
+  var matchArray=email.match(emailPat);
+  if (matchArray==null) {
+    alert("电子邮件地址必须包括 ( @ 和 . )")
+    result = false;
+  }
+
+  //mobile
+  var ab=/^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/;
+  var phone = $('#mobile').val()
+  if(ab.test(phone) == false)
+  {
+    alert("请正确填写手机号码!");
+    result = false;
+  }  
+*/
+  return result;
+}
+</script>

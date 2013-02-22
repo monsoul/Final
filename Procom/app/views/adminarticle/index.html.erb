@@ -1,0 +1,97 @@
+
+        <div class="span9">
+          <div class="row-fluid" style='border:1px solid lightgray'>
+
+              <table>
+
+                <td>
+                  <h3 style='position:relative;left:20px'>Article List</h3>
+                </td>
+                <td>
+                  <form method='post'   style="position:relative;left:280px;top:20px">
+                    <input name='article' id='search' value='Search'/>
+                  </form>
+                </td>
+                <td>
+                    <% if !@search %>
+                    <form name='formFilter' action='/adminarticle' method='get' style='position:relative;left:420px;top:20px'>
+                        <select name='tag' style="width: 120px" onchange='document.formFilter.submit();'>
+                          <option value ="all">All</option>
+
+                          <% @tags.each { |t| %>
+                            <option value ="<%= t.id %>,<%= t.name.strip %>" <%= @tag == t.name ? 'selected' : '' %> > <%= t.name %></option>
+                          <% } %>
+                        </select>              
+                    </form>
+                    <% end %>
+                </td>
+              </table>
+
+              <hr/>
+
+
+              <% @articles.each do |article| %>
+                      <div class="span9" onmouseover="showPanel('panel<%= article.id %>')" onmouseout="hidePanel('panel<%= article.id %>')">
+                        <h6><%= article.title%></h6>
+                        <table>
+                          <td>
+                          <p><%= article.created_at.to_s.split('UTC')[0]%></p>
+                          </td>
+                          <td>
+                          <div id='panel<%= article.id %>' style="display:none;position:relative;left:220px" >
+
+
+                           <!--<a href='http://baidu.com' id='test' >test</a>-->
+                            <%= link_to '删除', "/adminarticle/delete?id=" + article.id.to_s, remote: false, class: 'ajax' %>
+
+                            <%= link_to '修改', "/adminarticle/edit?id=" + article.id.to_s, remote: false, class: 'ajax' %>
+
+
+                          </div>
+                          </td>
+                        </table>
+
+                        <hr/>    
+                      </div><!--/span-->
+              <% end %>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+            $('.ajax').bind('ajax:success', function(evt, data, status, xhr) {
+              alert(data.message);
+            });
+
+            $('#search').click(function(){
+              this.value = '';
+            })
+
+
+            $('#test').click(function(){
+              return isDel();
+            })
+
+            function isDel(){
+              if(confirm('really del?')){
+                return true;
+              }
+              return false;
+
+            }
+
+          function showPanel(myPanel){
+            //alert('s');
+            
+            $('#' + myPanel).show();
+          }
+          
+          function hidePanel(myPanel){
+            
+           // $('#' + myPanel).fadeOut(1000);
+            $('#' + myPanel).hide();
+          }
+
+ 
+        </script>
+
+

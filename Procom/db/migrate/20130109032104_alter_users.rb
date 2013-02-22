@@ -6,9 +6,9 @@ class AlterUsers < ActiveRecord::Migration
       add_column("users","mobile",:string,:limit=>15)
       add_column("users","real_name",:string,:limit=>20,:null=>false)
       add_column("users","pic",:string)
-      add_column("users","full_pic",:string)
       add_column("users","applicant_id",:int)
       add_column("users","role",:string,:limit=>20)
+      add_column("users","source",:float)
       add_column("users","status",:string,:limit=>10,:null=>false)
     end
 
@@ -16,7 +16,6 @@ class AlterUsers < ActiveRecord::Migration
       remove_column("users","status")
       remove_column("users","role")
       remove_column("users","applicant_id")
-      remove_column("users","full_pic")
       remove_column("users","pic")
       remove_column("users","real_name")
       remove_column("users","mobile")

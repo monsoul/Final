@@ -1,0 +1,16 @@
+
+        <div class="span9">
+          <div class="row-fluid">
+              <h1>Tag List</h1>
+              <hr/>
+			<% @tags.each do |tag| %>
+                    <div class="span9">
+                      <p><%= tag.name%></p>
+                      <hr/>
+                    </div><!--/span-->
+            <% end %>
+ 
+          </div>
+        </div>
+
+

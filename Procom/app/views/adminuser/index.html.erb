@@ -1,0 +1,114 @@
+        
+  <style>
+    .user-disable { background-color:red;}
+    .user-enable { background-color:green;}
+  </style>
+
+
+        <div class="span9" >
+          <div class="row-fluid" style='border:1px solid gray'>
+              
+            <table>
+              <td>
+              <h3 style='position:relative;left:20px'>User List </h3>
+            </td>
+            <td>
+              <form method='post' style="position:relative;left:280px;top:20px">
+                <input name='username' id='search' value='Search' style='color:lightgray'/>
+                <!--<input type='submit' value='search'/>-->
+              </form>
+            </td>
+            <td>
+              <% if !@search %>  
+                <form name='formFilter' action='/adminuser' method='get' style='position:relative;left:420px;top:20px'>
+                  <select name='role' style="width: 120px" onchange='document.formFilter.submit();'>
+                  <option value ="all">All</option>
+                  <option value ="student" <%= @role=='student' ? 'selected' : '' %>>Student</option>
+                  <option value ="teacher" <%= @role=='teacher' ? 'selected' : '' %> >Teacher</option>
+                  <option value="admin"  <%= @role=='admin' ? 'selected' : '' %> >Admin</option>
+                </select>              
+              </form>
+              <% end %>
+            </td>
+          </table>
+
+
+              
+
+
+
+              <% @users.each do |user| %>
+                      <div class="span9" onmouseover="showPanel('panel<%= user.id %>')" onmouseout="hidePanel('panel<%= user.id %>')" style='background-color:white'>
+                        
+                        <% image_tag "rails.png" %>
+
+                        <h5>真名：<%= user.real_name%></h5>
+                        <table>
+                          <td width='120'>
+                        
+                          账号：<%= user.username %><br/>
+                          
+                         </td>
+                         <td width='120'>分类：<%= user.role %><br/></td>
+                         <td> <div id='status<%= user.id %>' class='<%= user.status=='1' ? "user-enable" : "user-disable" %>' style='color:white'>
+                                  <%=  user.status=='1' ? '启用' : '停用' %>
+                              </div>
+                        </td>
+                        <!--<p><a class="btn" href="#">View details &raquo;</a></p>-->
+                        <td>
+                        <div id='panel<%= user.id %>' style="display:none;position:relative;left:200px">
+                          <%= link_to '改变状态', "/adminuser/changestatus?id=" + user.id.to_s, remote: true, class: 'ajax', onclick: 'alert("begin")' %> &nbsp;
+
+                          <%= link_to '重置密码', "/adminuser/resetpassword?id=" + user.id.to_s, remote: true, class: 'ajax-pass', onclick: 'alert("begin reset password")' %>
+                        </td>
+
+                        </div>
+                      </table>
+                        <hr/>
+                      </div><!--/span-->
+              <% end %>
+
+          </div>
+        </div>
+
+        <script type="text/javascript">
+            $('.ajax').bind('ajax:success', function(evt, data, status, xhr) {
+              var ele = '#status' + data.id;
+              if(data.status==0){
+
+                $(ele).html('停用');
+                $(ele).css('background-color', 'red');
+
+              }
+              else {
+
+                $(ele).css('background-color', 'green');
+                $(ele).html('启用');
+              }
+
+
+            });
+
+            $('.ajax-pass').bind('ajax:success', function(evt, data, status, xhr) {
+              alert(data.message);
+
+
+            });
+
+            $('#search').click(function(){
+              this.value = '';
+            })
+
+          function showPanel(myPanel){
+            
+            $('#' + myPanel).show();
+          }
+          
+          function hidePanel(myPanel){
+            
+           // $('#' + myPanel).fadeOut(1000);
+            $('#' + myPanel).hide();
+          }
+
+ 
+        </script>

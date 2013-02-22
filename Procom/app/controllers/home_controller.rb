@@ -20,7 +20,10 @@ class HomeController < ApplicationController
     @user_app=Applicant.find(@user.applicant_id)
   end
   
-  def editinfo
+def editinfo
+  if check_login
+    user_id=session[:userid]
+    @user=User.find(user_id)
     unless request.get?
       user_id=session[:userid]
       old_password=Digest::MD5.hexdigest(params[:eidt_old_password])
@@ -40,7 +43,10 @@ class HomeController < ApplicationController
         render_json("fail","old password error or two password is different")
       end        
     end
+  else
+    render_json("need_login","need_login")
   end
+end
   
   def userinfodialog
     user_id = params[:user_id]

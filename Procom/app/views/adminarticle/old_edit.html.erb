@@ -1,0 +1,79 @@
+        
+
+        <div class="span9">
+         
+              <h1>Edit Article</h1>
+              <hr/>
+              <form action='/adminarticle/update' method='post' onsubmit='return verify()' enctype="MULTIPART/FORM-DATA">
+                <label>标题</label>
+                <input class="field span6" type='text' name='article[title]' id='title' size='50'/>
+                <label>内容</label>
+                <textarea class="field span6" name='article[content]' id='content' rows='10' cols='50'></textarea>
+                <label>概述</label>
+                <textarea class="field span6" name='article[brief]' id='brief' rows='10' cols='50'></textarea>
+                <label>类型</label>
+                <select name='article[article_type'>
+                  <option value ="ATC_O">原创</option>
+                  <option value ="ATC_EL">外部链接</option>
+                  <option value="ATC_QA">问答</option>
+                </select>
+
+                <label>选择要上载的文件</label>
+                  <input type="file" name="cover" /> 
+
+
+                <label>标签</label>
+                <input class="field span6" type='text' name='tag' id='tag' size='50'/>
+
+                      <div class="span9">
+                        <% @tags.each do |tag| %>
+                                      <div id='tag<%= tag.id %>' style='float:left' onclick='add(<%= tag.id %>)'>  <%= tag.name %>,</div>
+                          <% end %>                  
+                      </div><!--/span-->
+
+                <br/>
+                <br/>
+                <input type='submit' class='btn btn-primary' />
+              </form>              
+
+         
+        </div>
+
+<script>
+function add(id){
+  var oldValue = $('#tag').val();
+  var tagName = $('#tag' + id).html();
+  $('#tag').val(oldValue + ' ' + tagName);
+  //alert($('#tag' + id).html());
+}
+function verify(){
+  result = true;
+
+  //
+  if($('#title').val()==''){
+    alert('title blank');
+    result = false;
+  };
+
+/*
+  //email
+  var email = $('#email').val();
+  var emailPat=/^(.+)@(.+).(.+)$/;
+  var matchArray=email.match(emailPat);
+  if (matchArray==null) {
+    alert("电子邮件地址必须包括 ( @ 和 . )")
+    result = false;
+  }
+
+  //mobile
+  var ab=/^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/;
+  var phone = $('#mobile').val()
+  if(ab.test(phone) == false)
+  {
+    alert("请正确填写手机号码!");
+    result = false;
+  }  
+*/
+  return result;
+}
+</script>

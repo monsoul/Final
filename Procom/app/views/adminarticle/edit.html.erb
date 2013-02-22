@@ -1,0 +1,98 @@
+        
+  <link rel="stylesheet" href="/jwysiwyg/jquery.wysiwyg.css" type="text/css" />
+  <script type="text/javascript" src="/jwysiwyg/jquery.wysiwyg.js"></script>
+
+
+  <script type="text/javascript">
+  $(function()
+  {
+      //$('#content').wysiwyg();
+  });
+  </script>
+
+        <div class="span9">
+         
+              <h1>Edit Article</h1>
+              <hr/>
+              <form action='/adminarticle/update?id=<%= @article.id %>' method='post' onsubmit='return verify()' enctype="MULTIPART/FORM-DATA">
+                <label>标题</label>
+                <input class="field span6" type='text' name='article[title]' id='title' value='<%= @article.title %>'/>
+                <label>内容</label>
+                <textarea class="field span6" name='article[content]' id='content'  rows='10'/><%= @article.content %></textarea>
+                <label>概述</label>
+                <textarea class="field span6" name='article[brief]' id='brief'  rows='10'/><%= @article.brief %></textarea>
+
+                <label>上载图片文件</label>
+                  <input type="file" name="article[pic]" /> 
+
+
+                <label>文章类型</label>
+                <select name='article[article_type]'>
+                  <option value ="ATC_O" <%= @article.article_type=='ATC_O' ? 'selected' : '' %>>原创</option>
+                  <option value ="ATC_EL" <%= @article.article_type=='ATC_EL' ? 'selected' : '' %>>外部链接</option>
+                  <option value="ATC_QA" <%= @article.article_type=='ATC_QA' ? 'selected' : '' %>>问答</option>
+                </select>
+
+                <label>问题的号码</label>
+                <input type='text' name='article[qa_id]' value='<%= @article.qa_id %>'//>
+
+                <label>标签(鼠标点选，空格分隔)</label>
+                <input class="field span6" type='text' name='tag' id='tag' size='50' value='<%= @tag_str %>'/>
+
+                      <div class="span9" style='margin-bottom:1cm'>
+                        <% @tags.each do |tag| %>
+                                      <div id='tag<%= tag.id %>' style='float:left' onclick='add(<%= tag.id %>)'>  <%= tag.name %>,&nbsp;</div>
+                          <% end %>                  
+                      </div><!--/span-->
+
+                <br/>
+                <br/>
+                <br/>
+
+                <input type='submit' class='btn btn-primary' />
+              </form>              
+
+         
+        </div>
+
+<script>
+
+function add(id){
+  var oldValue = $('#tag').val();
+  var tagName = $('#tag' + id).html();
+  tagName = tagName.substring(0,tagName.lastIndexOf(','));
+  $('#tag').val(oldValue + ' ' + tagName);
+  //alert($('#tag' + id).html());
+}
+
+function verify(){
+  result = true;
+
+  //
+  if($('#title').val()==''){
+    alert('title blank');
+    result = false;
+  };
+
+/*
+  //email
+  var email = $('#email').val();
+  var emailPat=/^(.+)@(.+).(.+)$/;
+  var matchArray=email.match(emailPat);
+  if (matchArray==null) {
+    alert("电子邮件地址必须包括 ( @ 和 . )")
+    result = false;
+  }
+
+  //mobile
+  var ab=/^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/;
+  var phone = $('#mobile').val()
+  if(ab.test(phone) == false)
+  {
+    alert("请正确填写手机号码!");
+    result = false;
+  }  
+*/
+  return result;
+}
+</script>

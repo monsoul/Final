@@ -1,0 +1,46 @@
+
+        <div class="span9">
+          <div class="row-fluid">
+              <h1>Qa List</h1>
+
+              <form method='post'>
+                <input name='qa'/>
+                <input type='submit' value='search'/>
+              </form>
+              <hr/>
+
+
+              <% @qas.each do |q| %>
+                      <div class="span9">
+                        <h6><%= q.id %></h6>
+                        <p><%= q.question_title %></p>
+                        <p><%= q.content %></p>
+
+
+                        <hr/>    
+                      </div><!--/span-->
+              <% end %>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+            $('.ajax').bind('ajax:success', function(evt, data, status, xhr) {
+              alert(data.message);
+            });
+
+          function showPanel(myPanel){
+            //alert('s');
+            
+            $('#' + myPanel).show();
+          }
+          
+          function hidePanel(myPanel){
+            
+           // $('#' + myPanel).fadeOut(1000);
+            $('#' + myPanel).hide();
+          }
+
+ 
+        </script>
+
+

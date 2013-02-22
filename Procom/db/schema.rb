@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(:version => 20130115064709) do
     t.integer  "tag_id",     :null => false
   end
 
+  create_table "article_tags_copy", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "article_id", :null => false
+    t.integer  "tag_id",     :null => false
+  end
+
   create_table "articles", :force => true do |t|
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
@@ -85,16 +92,16 @@ ActiveRecord::Schema.define(:version => 20130115064709) do
   create_table "users", :force => true do |t|
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+    t.string   "full_pic"
     t.string   "username",     :limit => 20, :null => false
     t.string   "password",     :limit => 32, :null => false
     t.string   "email",                      :null => false
     t.string   "mobile",       :limit => 15
     t.string   "real_name",    :limit => 20, :null => false
     t.string   "pic"
-    t.string   "full_pic"
     t.integer  "applicant_id"
     t.string   "role",         :limit => 20
-    t.float    "score"
+    t.float    "source"
     t.string   "status",       :limit => 10, :null => false
   end
 

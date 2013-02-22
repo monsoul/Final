@@ -1,0 +1,60 @@
+        
+
+        <div class="span9">
+          <div class="row-fluid">
+              <h1>New User</h1>
+              <hr/>
+              <form action='/adminuser/create' method='post' onsubmit='return verify()'>
+                <label>账号</label>
+                <input type='text' name='username' id='username'/>
+                <label>email</label>
+                <input type='text' name='email' id='email'/>
+                <label>手机</label>
+                <input type='text' name='mobile' id='mobile'/>
+                <label>真名</label>
+                <input type='text' name='real_name' />
+                <label>角色</label>
+                <select name='role'>
+                  <option value ="student">Student</option>
+                  <option value ="teacher">Teacher</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <br/>
+                <input type='submit' class='btn btn-primary' />
+              </form>              
+
+          </div>
+        </div>
+
+<script>
+function verify(){
+  result = true;
+
+  //
+  if($('#username').val()==''){
+    alert('username blank');
+    result = false;
+  };
+
+
+  //email
+  var email = $('#email').val();
+  var emailPat=/^(.+)@(.+).(.+)$/;
+  var matchArray=email.match(emailPat);
+  if (matchArray==null) {
+    alert("电子邮件地址必须包括 ( @ 和 . )")
+    result = false;
+  }
+
+  //mobile
+  var ab=/^(13[0-9]|15[0|3|6|7|8|9]|18[8|9])\d{8}$/;
+  var phone = $('#mobile').val()
+  if(ab.test(phone) == false)
+  {
+    alert("请正确填写手机号码!");
+    result = false;
+  }  
+
+  return result;
+}
+</script>

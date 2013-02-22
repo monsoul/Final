@@ -1,0 +1,25 @@
+
+        <div class="span9">
+          <div class="row-fluid">
+            <h1>申请列表</h1>
+ 
+            <hr/>
+            <% debug(@users) %>
+
+            <% @users.each do |user| %>
+                    <div class="span9">
+                      <h2><%= user.real_name%></h2>
+                      <p>
+                        <%= user.username %>,
+                        <%= user.email %>
+
+                      </p>
+                      <!-- <p><a class="btn" href="">View details &raquo;</a></p>-->
+                      <%= link_to '审批', "/adminapply/approve?id=" + user.id.to_s %>
+                      <hr/>
+                    </div><!--/span-->
+            <% end %>
+       </div>
+      </div>
+
+     

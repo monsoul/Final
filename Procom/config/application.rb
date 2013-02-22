@@ -58,5 +58,14 @@ module Procom
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    
+    ActionMailer::Base.smtp_settings = {
+      :address        => "smtp.qq.com", # default: localhost
+      :port           => '25',                  # default: 25
+      :user_name      => "478311864@qq.com",
+      :password       => "smblwan0628",
+      :authentication => :login                 # :plain, :login or :cram_md5
+    }
+    
   end
 end
